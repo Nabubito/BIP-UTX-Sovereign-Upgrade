@@ -49,8 +49,6 @@ Wallet software must be upgraded to maintain these proofs.
 * **Dynamic Updates:** As new blocks are mined (adding/removing leaves), the Merkle Forest changes shape.
 * **Client Behavior:** Wallet software acts as a "Light Node," watching block headers and automatically applying mathematical updates to its local proofs to keep them valid against the current chain tip.
 
----
-
 ## 4. Operational Roadmap
 
 ### Phase 1: The Bridge Era (Transition)
@@ -69,24 +67,29 @@ To ensure backward compatibility and prevent user friction:
 * **Hardware Accessibility:** The minimum requirement for a Full Node effectively drops to low-power devices (e.g., Raspberry Pi Zero, older smartphones).
 * **Spam Neutrality:** The debate over "State Bloat" ends. Since "spam" UTXOs no longer consume node resources, the political pressure to ban them evaporates.
 
----
+## 5. Quantum Resistance and Long-Term Durability
 
-## 5. Economic Security Analysis (Miner Incentives)
+Unlike digital signatures (ECDSA/Schnorr), which are vulnerable to Quantum computing attacks (specifically Shor's Algorithm), the Utreexo accumulator mechanism relies exclusively on **Hash-based cryptography** (Merkle Forests).
+
+* **Post-Quantum Security:** Hash functions are widely considered quantum-resistant. While Quantum algorithms (like Grover's Algorithm) can theoretically speed up collision searching, they do not break the fundamental security model of the accumulator.
+* **Conservative Design:** This proposal introduces no new cryptographic hardness assumptions. By anchoring state verification in hashing rather than complex elliptic curve pairings, BIP-UTX ensures that the verification layer remains robust against future computational advancements.
+
+## 6. Economic Security Analysis (Miner Incentives)
 
 A critical flaw in deletion proposals ("The Cat") is the destruction of Miner Revenue. BIP-UTX preserves the "Security Budget."
 
-### 5.1 The Fee-Revenue Lifeline
+### 6.1 The Fee-Revenue Lifeline
 With the block subsidy currently at 3.125 BTC and halving every 4 years, miners are increasingly dependent on transaction fees. Data from the 2023-2024 cycle demonstrates that **Inscriptions provided a critical revenue floor** during bear markets.
 * **"The Cat" Impact:** By deleting or banning this data, the network destroys 20-30% of potential miner revenue, forcing small miners out of business and centralizing hashrate into industrial pools.
 * **BIP-UTX Impact:** By allowing Inscriptions to exist efficiently, we preserve this revenue stream. Miners get paid to include the data, but Nodes are not punished for storing it.
 
-### 5.2 Alignment of Incentives
+### 6.2 Alignment of Incentives
 BIP-UTX creates a fair market:
 * **The Spammer:** Pays the fee to mint data and bears the cost of storing the Proof.
 * **The Miner:** Receives the fee for security.
 * **The Node:** Verifies the rules without bearing the cost.
 
-## 6. Rationale & Alternatives Considered
+## 7. Rationale & Alternatives Considered
 
 ### Why not Pruning?
 Current "Pruned Nodes" discard history but still maintain the full UTXO set in RAM. They do not solve the RAM bottleneck caused by State Bloat. Utreexo solves the RAM bottleneck directly.
@@ -94,8 +97,13 @@ Current "Pruned Nodes" discard history but still maintain the full UTXO set in R
 ### Why not "The Cat" (Deletion)?
 Deleting UTXOs destroys the fungibility of Bitcoin. If a "consensus of nodes" can vote to delete one type of UTXO today, they can vote to delete a political adversary's UTXO tomorrow. This transforms Bitcoin from a **Protocol of Truth** into a **Protocol of Opinion**.
 
-## 7. Conclusion
+## 8. Conclusion
 
-BIP-UTX represents the evolution of Bitcoin from a "Replicated Database" (where everyone stores everything) to a "Verifiable Proof System" (where users prove ownership to a lean decentralized court).
+BIP-UTX represents a critical pivot in Bitcoin's scaling roadmap. By shifting the state verification model from **storage-heavy** (holding the full UTXO set) to **bandwidth-light** (verifying inclusion proofs), we solve the "State Bloat" crisis without compromising the network's core principles.
 
-It resolves the conflict between **Ordinals growth** and **Node decentralization** without compromising the security model or the economic viability of the mining sector. It allows Bitcoin to scale globally while remaining verifiable on a device that fits in a pocket.
+This upgrade avoids the dangerous precedent of deleting transaction history or deciding which data counts as "spam." Instead, it relies on cryptographic efficiency to ensure that Bitcoin remains:
+1.  **Permissionless:** Running a fully validating node remains accessible on consumer hardware (<10KB RAM).
+2.  **Immutable:** No history is pruned, censored, or discarded.
+3.  **Sovereign:** The ability to verify the consensus rules is returned to the user, not centralized in data centers.
+
+Bitcoin scales through better mathematics, not through political exclusion.
