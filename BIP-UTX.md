@@ -1,10 +1,12 @@
-BIP: UTX
-Title: Compact State Verification via Utreexo Accumulators (The Sovereign Node Upgrade)
-Author: Chron
-Status: Draft
-Type: Standards Track
-Layer: Consensus (Soft Fork) / P2P
+---
+BIP: UTX  
+Title: Compact State Verification via Utreexo Accumulators (The Sovereign Node Upgrade)  
+Author: Chron  
+Status: Draft  
+Type: Standards Track  
+Layer: Consensus (Soft Fork) / P2P  
 Created: 2025-12-10
+---
 
 ## 1. Abstract
 
